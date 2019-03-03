@@ -1,3 +1,4 @@
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
 
@@ -12,11 +13,10 @@ const TASKS: Array<Task> = [
   { id: 8, title: 'Fazer tarefa 8'}
 ]
 
-//const TASKS: Array<Task> = []
-
 @Injectable()
 
 export class TaskService{
+  public constructor(private http: Http){}
   public getTasks(): Promise<any>{
     let promise = new Promise((resolve, reject) => {
       if (TASKS.length > 0) {
