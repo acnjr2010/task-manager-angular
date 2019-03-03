@@ -26,8 +26,9 @@ export class TaskService{
 
   }
 
-  public getImportantTasks(): Promise<any>{
-    return Promise.resolve(TASKS.slice(0, 3));
+  public getImportantTasks(): Observable<any>{
+    return this.getTasks()
+      .map(tasks => tasks.slice(0, 3))
   }
 
   public getTask(id: number): Observable<Task>{
