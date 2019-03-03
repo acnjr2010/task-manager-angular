@@ -5,8 +5,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'tasks',
-    templateUrl: './tasks.component.html',
-    providers: [ TaskService ]
+    templateUrl: './tasks.component.html'
 })
 
 export class TaskComponent implements OnInit{

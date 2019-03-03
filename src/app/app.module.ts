@@ -10,7 +10,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TaskComponent } from './tasks/tasks.component';
 import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
 
+import { TaskService } from './tasks/shared/task.service'
+
 const ROUTES = RouterModule.forRoot([
+  {
+    path: 'tasks/:id',
+    component: TaskDetailComponent
+  },
   {
     path: 'dashboard',
     component: DashboardComponent
@@ -41,7 +47,7 @@ const ROUTES = RouterModule.forRoot([
     HttpModule,
     ROUTES
   ],
-  providers: [],
+  providers: [ TaskService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
