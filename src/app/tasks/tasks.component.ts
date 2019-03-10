@@ -41,5 +41,15 @@ export class TaskComponent implements OnInit{
     }
   }
 
+  public deleteTask(task: Task){
+    if( confirm(`Deseja realmente apagar a tarefa "${task.title}"?`)){
+      this.taskService.deleteTask(task.id)
+      .subscribe(
+        () => this.tasks = this.tasks.filter(t => t.id !== task.id),
+        () => alert("Ocorreu um erro no servidor, tente novamente mais tarde...")
+      )
+    }
+  }
+
   
 }
