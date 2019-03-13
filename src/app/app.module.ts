@@ -22,6 +22,18 @@ import { AppRoutingModule } from 'app/app-routing.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryTaskDataService } from './in-memory-task-data.service';
 
+// rxjs operators
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/switchMap';
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
+
+// rxjs extension
+import "rxjs/add/observable/of";
+import 'rxjs/add/observable/throw';
+
+
 @NgModule({
   declarations: [
     AppComponent,
