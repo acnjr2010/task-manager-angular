@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class TaskSearchComponent implements OnInit {
-  public searchTerms: Subject<string> = new Subject();
+  public searchTerms: Subject<any> = new Subject();
   public tasks: Task[] = [];
 
   public constructor(private taskService: TaskService, private router: Router){}

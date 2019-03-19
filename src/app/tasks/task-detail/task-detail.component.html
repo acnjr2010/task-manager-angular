@@ -1,10 +1,10 @@
 <h1 class="page-header">Detalhes da Tarefa: {{ task?.title }}</h1>
 
-<div class="form-horizontal" *ngIf="task">
+<form #taskForm="ngForm" class="form-horizontal" *ngIf="task">
   <div class="form-group row">
     <label for="title" class="col-sm-2 col-form-label">Título</label>
     <div class="col-sm-8">
-      <input type="text" [(ngModel)]="task.title" class="form-control">
+      <input type="text" [(ngModel)]="task.title" class="form-control" name="title" id="title" required>
     </div>
   </div>
 
@@ -14,4 +14,4 @@
       <button type="submit" class="btn btn-success" (click)="updateTask()">Atualizar</button>
     </div>
   </div>
-</div>
+</form>
