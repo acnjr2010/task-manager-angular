@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
+import { FormUtils } from '../../shared/form.utils';
 import { Task } from '../shared/task.model';
 import { TaskService } from '../shared/task.service';
 
@@ -11,10 +12,10 @@ import { TaskService } from '../shared/task.service';
 })
 
 export class TaskDetailComponent implements OnInit, AfterViewInit{
-  public reactiveTaskForm: FormGroup;
+  public form: FormGroup;
   public task: Task;
-
   public taskDoneOptions: Array<any>;
+  public formUtils: FormUtils;
 
   public constructor(
     private taskService: TaskService,
@@ -27,7 +28,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
       { value: true, text: "Feito" }
     ]
 
-    this.reactiveTaskForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       deadline: [null, Validators.required],
       done: [null, Validators.required],
@@ -37,6 +38,8 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
         email: ['nog.junior84@gmail.com']
       }) */
     })
+
+    this.formUtils = new FormUtils(this.form);
   }
 
   public ngOnInit(){
@@ -55,7 +58,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
   $('#deadline').datetimepicker({
     'sideBySide': true,
     'locale': 'pt-br'
-  }).on('dp.change', () => this.reactiveTaskForm.get('deadline').setValue($('#deadline').val())); 
+  }).on('dp.change', () => this.form.get('deadline').setValue($('#deadline').val())); 
 
 
   // Exemplo utilizando TDF
@@ -72,10 +75,10 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
   }
 
   public updateTask(){
-    this.task.title = this.reactiveTaskForm.get('title').value;
-    this.task.deadline = this.reactiveTaskForm.get('deadline').value;
-    this.task.done = this.reactiveTaskForm.get('done').value;
-    this.task.description = this.reactiveTaskForm.get('description').value;
+    this.task.title = this.form.get('title').value;
+    this.task.deadline = this.form.get('deadline').value;
+    this.task.done = this.form.get('done').value;
+    this.task.description = this.form.get('description').value;
 
     this.taskService.update(this.task)
       .subscribe(
@@ -86,7 +89,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
 
   public setTask(task: Task): void {
     this.task = task;
-    this.reactiveTaskForm.patchValue(task);
+    this.form.patchValue(task);
     // setValue => Aceita os campos do task igual ao objeto
 
     /*     let formModel = {
@@ -96,7 +99,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
       deadline: task.deadline || null
     }
 
-    this.reactiveTaskForm.setValue(formModel); */
+    this.form.setValue(formModel); */
 
 
     // patchValue => Aceita os valores que você passar sem a obrigação de ter todos os campos
@@ -105,24 +108,6 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
       title: task.title || null
     }
 
-    this.reactiveTaskForm.patchValue(formModel); */
-  }
-
-  // errors methods
-
-  public fieldClassForErrorOrSuccess(fieldName: string) {
-    return {
-      'is-invalid': this.showFieldError(fieldName),
-      'is-valid': this.getField(fieldName).valid
-    }
-  }
-
-  public showFieldError(fieldName: string): boolean {
-    let field = this.getField(fieldName);
-    return field.invalid && ( field.touched || field.dirty );
-  }
-
-  public getField(fieldName: string){
-    return this.reactiveTaskForm.get(fieldName);
+    this.form.patchValue(formModel); */
   }
 }

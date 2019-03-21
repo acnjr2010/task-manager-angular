@@ -1,26 +1,26 @@
 <h1 class="page-header pt-5">Detalhes da Tarefa: {{ task.title }}</h1>
 
-<form [formGroup]="reactiveTaskForm" (ngSubmit)="updateTask()" class="mt-4" novalidate>
+<form [formGroup]="form" (ngSubmit)="updateTask()" class="mt-4" novalidate>
   <div class="row">
     <div class="form-group col-md-6">
       <label for="title" class="col-form-label">Título</label>
-      <input type="text" formControlName="title" id="title" class="form-control" [ngClass]="fieldClassForErrorOrSuccess('title')">
+      <input type="text" formControlName="title" id="title" class="form-control" [ngClass]="formUtils.fieldClassForErrorOrSuccess('title')">
       <div class="invalid-feedback">
-        <div *ngIf="getField('title').errors?.required">Título é obrigatório</div>
-        <div *ngIf="getField('title').errors?.minlength">O título deve ter no mínimo 2 caracteres</div>
-        <div *ngIf="getField('title').errors?.maxlength">O título deve ter no máximo 255 caracteres</div>
+        <div *ngIf="form.get('title').errors?.required">Título é obrigatório</div>
+        <div *ngIf="form.get('title').errors?.minlength">O título deve ter no mínimo 2 caracteres</div>
+        <div *ngIf="form.get('title').errors?.maxlength">O título deve ter no máximo 255 caracteres</div>
       </div>
     </div>
 
     <div class="form-group col-md-3">
       <label for="deadline" class="col-form-label">Prazo de entrega</label>
-      <input type="text" formControlName="deadline" id="deadline" class="form-control" [ngClass]="fieldClassForErrorOrSuccess('deadline')">
+      <input type="text" formControlName="deadline" id="deadline" class="form-control" [ngClass]="formUtils.fieldClassForErrorOrSuccess('deadline')">
       <div class="invalid-feedback">Prazo de entrega é obrigatório</div>
     </div>
 
     <div class="form-group col-md-3">
       <label for="done" class="col-form-label">Situação</label>
-      <select class="form-control" formControlName="done" id="done" [ngClass]="fieldClassForErrorOrSuccess('done')">
+      <select class="form-control" formControlName="done" id="done" [ngClass]="formUtils.fieldClassForErrorOrSuccess('done')">
         <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{option.text}}</option>
       </select>
       <div class="invalid-feedback">Situação não pode ficar em branco</div>
@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <button [disabled]="reactiveTaskForm.invalid" type="submit" class="btn btn-success">Atualizar</button>
+  <button [disabled]="form.invalid" type="submit" class="btn btn-success">Atualizar</button>
   <button class="btn btn-light" type="button" (click)="goBack()">Voltar</button>
 
 <!-- Exemplo de form agrupado a outro objeto
@@ -53,11 +53,11 @@
 -->
 
   <pre>
-    {{ reactiveTaskForm.value | json }}
+    {{ form.value | json }}
   </pre>
 
   <pre>
-      {{ reactiveTaskForm.get('title').errors | json}}
+      {{ form.get('title').errors | json}}
   </pre>
 </form>
 
