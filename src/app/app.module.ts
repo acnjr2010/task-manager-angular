@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TaskComponent } from './tasks/tasks.component';
 import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
 import { TaskSearchComponent } from './navbar/task-search/task-search.component';
+import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 
 // services imports
 import { TaskService } from './tasks/shared/task.service'
@@ -43,6 +44,7 @@ import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
     AppComponent,
     DashboardComponent,
     NavbarComponent,
+    SignUpFormComponent,
     TaskComponent,
     TaskDetailComponent,
     TaskSearchComponent
