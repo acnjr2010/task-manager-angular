@@ -33,6 +33,10 @@ import "rxjs/add/operator/distinctUntilChanged";
 import "rxjs/add/observable/of";
 import 'rxjs/add/observable/throw';
 
+// jquery
+import * as $ from 'jquery';
+import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
+
 
 @NgModule({
   declarations: [
