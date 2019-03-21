@@ -1,6 +1,6 @@
 <h1 class="page-header pt-5">Detalhes da Tarefa: {{ task.title }}</h1>
 
-<form [formGroup]="reactiveTaskForm" class="mt-4" novalidate>
+<form [formGroup]="reactiveTaskForm" (ngSubmit)="updateTask()" class="mt-4" novalidate>
   <div class="row">
     <div class="form-group col-md-6">
       <label for="title" class="col-form-label">Título</label>
@@ -34,7 +34,12 @@
     </div>
   </div>
 
-<!--   <div class="row" formGroupName="user">
+  <button [disabled]="reactiveTaskForm.invalid" type="submit" class="btn btn-success">Atualizar</button>
+  <button class="btn btn-light" type="button" (click)="goBack()">Voltar</button>
+
+<!-- Exemplo de form agrupado a outro objeto
+
+  <div class="row" formGroupName="user">
     <div class="form-group col-md-6">
       <label for="name" class="col-form-label">Nome</label>
       <input type="text" formControlName="name" id="name" class="form-control">
@@ -44,7 +49,8 @@
       <label for="email" class="col-form-label">Email</label>
       <input type="text" formControlName="email" id="email" class="form-control">
     </div>
-  </div> -->
+  </div> 
+-->
 
   <pre>
     {{ reactiveTaskForm.value | json }}
