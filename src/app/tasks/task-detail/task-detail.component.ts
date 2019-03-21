@@ -38,16 +38,26 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
     this.route.params
       .switchMap((params: Params) => this.taskService.getById(+params['id']))
       .subscribe(
-        task => this.task = task,
+        task => this.setTask(task),
         error => alert("Ocorreu um erro no servidor, tente novamente mais tarde...")
       )
   }
 
   public ngAfterViewInit(){
-/*     $('#deadline').datetimepicker({
+  // Exemplo utilizando o REACTIVE FORM
+  $('#deadline').datetimepicker({
+    'sideBySide': true,
+    'locale': 'pt-br'
+  }).on('dp.change', () => this.reactiveTaskForm.get('deadline').setValue($('#deadline').val())); 
+
+
+  // Exemplo utilizando TDF
+  /*     
+    $('#deadline').datetimepicker({
       'sideBySide': true,
       'locale': 'pt-br'
-    }).on('dp.change', () => this.task.deadline = $('#deadline').val()); */
+    }).on('dp.change', () => this.task.deadline = $('#deadline').val()); 
+  */
   }
 
   public goBack(){
@@ -60,5 +70,29 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
         () => alert("Tarefa atualizada com sucesso"),
         error => alert("Ocorreu um erro no servidor, tente novamente mais tarde...")
       );
+  }
+
+  public setTask(task: Task): void {
+    this.task = task;
+    this.reactiveTaskForm.patchValue(task);
+    // setValue => Aceita os campos do task igual ao objeto
+
+    /*     let formModel = {
+      title: task.title || null,
+      description: task.description || null,
+      done: task.done || null,
+      deadline: task.deadline || null
+    }
+
+    this.reactiveTaskForm.setValue(formModel); */
+
+
+    // patchValue => Aceita os valores que você passar sem a obrigação de ter todos os campos
+
+    /*     let formModel = {
+      title: task.title || null
+    }
+
+    this.reactiveTaskForm.patchValue(formModel); */
   }
 }
