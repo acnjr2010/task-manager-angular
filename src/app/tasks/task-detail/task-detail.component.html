@@ -1,6 +1,6 @@
 <h1 class="page-header pt-5">Detalhes da Tarefa: {{ task.title }}</h1>
 
-<form #taskForm="ngForm" class="mt-4" novalidate>
+<form #taskForm="ngForm" (ngSubmit)="updateTask()" class="mt-4" novalidate>
   <div class="row">
     <div class="form-group col-md-6">
       <label for="title" class="col-form-label">Título</label>
@@ -34,6 +34,6 @@
     </div>
   </div>
 
+  <button [disabled]="taskForm.invalid" type="submit" class="btn btn-success">Atualizar</button>
   <button class="btn btn-light" (click)="goBack()">Voltar</button>
-  <button [disabled]="taskForm.invalid" type="submit" class="btn btn-success" (click)="updateTask()">Atualizar</button>
 </form>
