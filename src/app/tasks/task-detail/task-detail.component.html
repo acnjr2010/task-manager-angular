@@ -1,6 +1,39 @@
 <h1 class="page-header pt-5">Detalhes da Tarefa: {{ task.title }}</h1>
 
-<form #taskForm="ngForm" (ngSubmit)="updateTask()" class="mt-4" novalidate>
+<form [formGroup]="reactiveTaskForm">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="title" class="col-form-label">Título</label>
+      <input type="text" formControlName="title" id="title" class="form-control">
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="deadline" class="col-form-label">Prazo de entrega</label>
+      <input type="text" formControlName="deadline" id="deadline" class="form-control">
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="done" class="col-form-label">Situação</label>
+      <select class="form-control" formControlName="done" id="done">
+        <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{option.text}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12">
+      <label for="description" class="col-form-label">Descrição</label>
+      <textarea formControlName="description" id="description" rows="4" class="form-control"></textarea>
+    </div>
+  </div>
+
+  <pre>
+    {{ reactiveTaskForm.value | json }}
+  </pre>
+</form>
+
+
+<!-- <form #taskForm="ngForm" (ngSubmit)="updateTask()" class="mt-4" novalidate>
   <div class="row">
     <div class="form-group col-md-6">
       <label for="title" class="col-form-label">Título</label>
@@ -36,4 +69,4 @@
 
   <button [disabled]="taskForm.invalid" type="submit" class="btn btn-success">Atualizar</button>
   <button class="btn btn-light" (click)="goBack()">Voltar</button>
-</form>
+</form> -->
