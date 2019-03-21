@@ -1,22 +1,25 @@
 <h1 class="page-header pt-5">Detalhes da Tarefa: {{ task?.title }}</h1>
 
-<form #taskForm="ngForm" *ngIf="task" class="mt-4">
+<form #taskForm="ngForm" *ngIf="task" class="mt-4" novalidate>
   <div class="row">
     <div class="form-group col-md-6">
       <label for="title" class="col-form-label">Título</label>
-      <input [(ngModel)]="task.title" class="form-control" type="text" name="title" id="title" required>
+      <input #title="ngModel" [(ngModel)]="task.title" class="form-control" type="text" name="title" id="title" required [class.is-invalid]="title.invalid && title.touched" [class.is-valid]="title.valid">
+      <div class="invalid-feedback">Título é obrigatório</div>
     </div>
 
     <div class="form-group col-md-3">
       <label for="deadline" class="col-form-label">Prazo de entrega</label>
-      <input [(ngModel)]="task.deadline" class="form-control" type="text" name="deadline" id="deadline">
+      <input #deadline="ngModel" [(ngModel)]="task.deadline" class="form-control" type="text" name="deadline" id="deadline" required [class.is-invalid]="deadline.invalid && deadline.touched" [class.is-valid]="deadline.valid">
+      <div class="invalid-feedback">Prazo de entrega é obrigatório</div>
     </div>
 
     <div class="form-group col-md-3">
       <label for="done" class="col-form-label">Situação</label>
-      <select [(ngModel)]="task.done" class="form-control" name="done" id="done">
+      <select #done="ngModel" [(ngModel)]="task.done" class="form-control" name="done" id="done" required [class.is-invalid]="done.invalid && done.touched" [class.is-valid]="done.valid">
         <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{option.text}}</option>
       </select>
+      <div class="invalid-feedback">Situação não pode ficar em branco</div>
     </div>  
   </div>
 
@@ -28,11 +31,5 @@
   </div>
 
   <button class="btn btn-light" (click)="goBack()">Voltar</button>
-  <button type="submit" class="btn btn-success" (click)="updateTask()">Atualizar</button>
-
-  <hr>
-
-  <pre>
-    {{ task | json }}
-  </pre>
+  <button [disabled]="taskForm.invalid" type="submit" class="btn btn-success" (click)="updateTask()">Atualizar</button>
 </form>
