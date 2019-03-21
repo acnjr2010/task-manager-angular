@@ -1,17 +1,38 @@
-<h1 class="page-header">Detalhes da Tarefa: {{ task?.title }}</h1>
+<h1 class="page-header pt-5">Detalhes da Tarefa: {{ task?.title }}</h1>
 
-<div class="form-horizontal" *ngIf="task">
-  <div class="form-group row">
-    <label for="title" class="col-sm-2 col-form-label">Título</label>
-    <div class="col-sm-8">
-      <input type="text" [(ngModel)]="task.title" class="form-control">
+<form #taskForm="ngForm" *ngIf="task" class="mt-4">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="title" class="col-form-label">Título</label>
+      <input [(ngModel)]="task.title" class="form-control" type="text" name="title" id="title" required>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="deadline" class="col-form-label">Prazo de entrega</label>
+      <input [(ngModel)]="task.deadline" class="form-control" type="text" name="deadline" id="deadline">
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="done" class="col-form-label">Situação</label>
+      <select [(ngModel)]="task.done" class="form-control" name="done" id="done">
+        <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{option.text}}</option>
+      </select>
+    </div>  
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12">
+      <label for="description" class="col-form-label">Descrição detalhada</label>
+      <textarea [(ngModel)]="task.description" name="description" id="description" rows="4" class="form-control"></textarea>
     </div>
   </div>
 
-  <div class="form-group row">
-    <div class="col-sm-offset-2 col-sm-8">
-      <button class="btn btn-default" (click)="goBack()">Voltar</button>
-      <button type="submit" class="btn btn-success" (click)="updateTask()">Atualizar</button>
-    </div>
-  </div>
-</div>
+  <button class="btn btn-light" (click)="goBack()">Voltar</button>
+  <button type="submit" class="btn btn-success" (click)="updateTask()">Atualizar</button>
+
+  <hr>
+
+  <pre>
+    {{ task | json }}
+  </pre>
+</form>
