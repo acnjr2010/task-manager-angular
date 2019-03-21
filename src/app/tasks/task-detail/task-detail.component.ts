@@ -14,10 +14,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
   public reactiveTaskForm: FormGroup;
   public task: Task;
 
-  public taskDoneOptions: Array<any> = [
-    { value: false, text: "Pendente" },
-    { value: true, text: "Feito" }
-  ]
+  public taskDoneOptions: Array<any>;
 
   public constructor(
     private taskService: TaskService,
@@ -25,6 +22,11 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
     private location: Location,
     private formBuilder: FormBuilder
   ){
+    this.taskDoneOptions = [
+      { value: false, text: "Pendente" },
+      { value: true, text: "Feito" }
+    ]
+
     this.reactiveTaskForm = this.formBuilder.group({
       title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
       deadline: [null, Validators.required],
@@ -74,7 +76,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
     this.task.deadline = this.reactiveTaskForm.get('deadline').value;
     this.task.done = this.reactiveTaskForm.get('done').value;
     this.task.description = this.reactiveTaskForm.get('description').value;
-    
+
     this.taskService.update(this.task)
       .subscribe(
         () => alert("Tarefa atualizada com sucesso"),
@@ -104,5 +106,23 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
     }
 
     this.reactiveTaskForm.patchValue(formModel); */
+  }
+
+  // errors methods
+
+  public fieldClassForErrorOrSuccess(fieldName: string) {
+    return {
+      'is-invalid': this.showFieldError(fieldName),
+      'is-valid': this.getField(fieldName).valid
+    }
+  }
+
+  public showFieldError(fieldName: string): boolean {
+    let field = this.getField(fieldName);
+    return field.invalid && ( field.touched || field.dirty );
+  }
+
+  public getField(fieldName: string){
+    return this.reactiveTaskForm.get(fieldName);
   }
 }

@@ -4,23 +4,23 @@
   <div class="row">
     <div class="form-group col-md-6">
       <label for="title" class="col-form-label">Título</label>
-      <input type="text" formControlName="title" id="title" class="form-control" [class.is-invalid]="reactiveTaskForm.get('title').invalid && reactiveTaskForm.get('title').touched" [class.is-valid]="reactiveTaskForm.get('title').valid">
+      <input type="text" formControlName="title" id="title" class="form-control" [ngClass]="fieldClassForErrorOrSuccess('title')">
       <div class="invalid-feedback">
-        <div *ngIf="reactiveTaskForm.get('title').errors?.required">Título é obrigatório</div>
-        <div *ngIf="reactiveTaskForm.get('title').errors?.minlength">O título deve ter no mínimo 2 caracteres</div>
-        <div *ngIf="reactiveTaskForm.get('title').errors?.maxlength">O título deve ter no máximo 255 caracteres</div>
+        <div *ngIf="getField('title').errors?.required">Título é obrigatório</div>
+        <div *ngIf="getField('title').errors?.minlength">O título deve ter no mínimo 2 caracteres</div>
+        <div *ngIf="getField('title').errors?.maxlength">O título deve ter no máximo 255 caracteres</div>
       </div>
     </div>
 
     <div class="form-group col-md-3">
       <label for="deadline" class="col-form-label">Prazo de entrega</label>
-      <input type="text" formControlName="deadline" id="deadline" class="form-control" [class.is-invalid]="reactiveTaskForm.get('deadline').invalid && reactiveTaskForm.get('deadline').touched" [class.is-valid]="reactiveTaskForm.get('deadline').valid">
+      <input type="text" formControlName="deadline" id="deadline" class="form-control" [ngClass]="fieldClassForErrorOrSuccess('deadline')">
       <div class="invalid-feedback">Prazo de entrega é obrigatório</div>
     </div>
 
     <div class="form-group col-md-3">
       <label for="done" class="col-form-label">Situação</label>
-      <select class="form-control" formControlName="done" id="done" [class.is-invalid]="reactiveTaskForm.get('done').invalid && reactiveTaskForm.get('done').touched" [class.is-valid]="reactiveTaskForm.get('done').valid">
+      <select class="form-control" formControlName="done" id="done" [ngClass]="fieldClassForErrorOrSuccess('done')">
         <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{option.text}}</option>
       </select>
       <div class="invalid-feedback">Situação não pode ficar em branco</div>
