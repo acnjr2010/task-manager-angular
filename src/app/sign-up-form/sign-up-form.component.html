@@ -42,8 +42,9 @@
       <div class="col-sm-4">
         <input type="password" class="form-control" id="passwordConfirmation" formControlName="passwordConfirmation" [ngClass]="formUtils.fieldClassForErrorOrSuccess('passwordConfirmation')">
         <div class="invalid-feedback">
-            <div *ngIf="form.get('passwordConfirmation').errors?.required">Confirmação de senha é obrigatório</div>
-          </div>
+          <div *ngIf="form.get('passwordConfirmation').errors?.required">Confirmação de senha é obrigatório</div>
+          <div *ngIf="form.get('passwordConfirmation').errors?.mismatch">Senha e Confirmação de senha não conferem</div>
+        </div>
       </div>
     </div>
 
