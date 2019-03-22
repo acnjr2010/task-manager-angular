@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 export class TaskService{
   public tasksUrl = "api/tasks";
+  //public tasksUrl = "http://localhost:3000/tasks";
   public headers = new Headers({ 'Content-type': 'application/json'});
   
   public constructor(private http: Http){}

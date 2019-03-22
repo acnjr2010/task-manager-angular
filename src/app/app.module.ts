@@ -24,8 +24,8 @@ import { TaskService } from './tasks/shared/task.service'
 import { AppRoutingModule } from 'app/app-routing.module';
 
 // in memory web api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryTaskDataService } from './in-memory-task-data.service';
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryTaskDataService } from './in-memory-task-data.service';
 
 // rxjs operators
 import 'rxjs/add/operator/map';
@@ -59,8 +59,8 @@ import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule,
-    InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
+    AppRoutingModule//,
+    //InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
   ],
   providers: [ 
     Angular2TokenService,
