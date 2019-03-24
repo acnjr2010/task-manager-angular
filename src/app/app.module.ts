@@ -18,10 +18,13 @@ import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 
 // services imports
-import { TaskService } from './tasks/shared/task.service'
+import { TaskService } from './tasks/shared/task.service';
 
 // modules imports
 import { AppRoutingModule } from 'app/app-routing.module';
+
+// guards
+import { AuthGuard } from './guards/auth.guard';
 
 // in memory web api
 // import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -41,6 +44,7 @@ import 'rxjs/add/observable/throw';
 // jquery
 import * as $ from 'jquery';
 import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
+import { AuthService } from './shared/auth.service';
 
 
 @NgModule({
@@ -64,6 +68,8 @@ import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
   ],
   providers: [ 
     Angular2TokenService,
+    AuthGuard,
+    AuthService,
     TaskService
   ],
   bootstrap: [AppComponent]
