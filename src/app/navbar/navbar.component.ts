@@ -17,5 +17,9 @@ export class NavbarComponent{
 				() => this.router.navigate(['/sign-in'])
 			)
 	}
+
+	public userSignedIn(){
+		return this.authService.userSignedIn();
+	}
 	
 }
