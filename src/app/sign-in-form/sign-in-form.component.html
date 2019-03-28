@@ -2,6 +2,17 @@
 <hr>
 
 <div class="jumbotron">
+  <div *ngIf="formErrors" class="alert alert-danger">
+    <strong>
+      <span class="glyphicon glyphicon-warning-sign"></span>
+      Ocorreu um erro ao tentar entrar no sistema.
+    </strong>
+
+    <ul>
+      <li *ngFor="let error of formErrors">{{ error }}</li>
+    </ul>
+  </div>
+
   <form class="form-horizontal" [formGroup]="form" (ngSubmit)="signInUser()" class="mt-4" novalidate>
     <div class="form-group row">
       <label for="email" class="col-sm-4 col-form-label">Email</label>
@@ -26,7 +37,7 @@
 
     <div class="form-group row">
       <div class="col-sm-offset-4 col-sm-8">
-        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Logar</button>
+        <button [disabled]="form.invalid || submitted" type="submit" class="btn btn-primary">Logar</button>
       </div>
     </div>
   </form>

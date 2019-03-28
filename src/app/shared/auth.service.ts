@@ -17,7 +17,13 @@ export class AuthService{
   }
 
   public signIn(uid: string, password: string){
+    let signInData = {
+      email: uid,
+      password: password 
+    }
 
+    return this.tokenService.signIn(signInData)
+      .catch(this.handleErrors);
   }
 
   public signOut(): Observable<Response>{
