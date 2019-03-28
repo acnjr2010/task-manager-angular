@@ -30,6 +30,6 @@ export class AuthService{
 
   private handleErrors(error: Response){
     console.log('Salvando erro no log - Detalhes do erro => ', error);
-    Observable.throw(error);
+    return Observable.throw(error);
   }
 }
