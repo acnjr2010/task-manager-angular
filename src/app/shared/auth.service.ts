@@ -11,8 +11,9 @@ import { User } from './user.model';
 export class AuthService{
   public constructor(private tokenService: Angular2TokenService){}
 
-  public signUp(user: User){
-
+  public signUp(user: User): Observable<Response>{
+    return this.tokenService.registerAccount(user as any)
+      .catch(this.handleErrors);
   }
 
   public signIn(uid: string, password: string){
@@ -29,6 +30,6 @@ export class AuthService{
 
   private handleErrors(error: Response){
     console.log('Salvando erro no log - Detalhes do erro => ', error);
-    console.log(Observable.throw(error));
+    Observable.throw(error);
   }
 }
