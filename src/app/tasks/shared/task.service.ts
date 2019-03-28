@@ -2,15 +2,14 @@ import { Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
 import { Observable } from 'rxjs/Observable';
-import { Angular2TokenService } from "angular2-token";
+import { TokenService } from '../../shared/token.service';
 
 @Injectable()
 
 export class TaskService{
   public tasksUrl = "tasks";
-  //public tasksUrl = "http://localhost:3000/tasks";
   
-  public constructor(private tokenHttp: Angular2TokenService){}
+  public constructor(private tokenHttp: TokenService){}
   
   public getAll(): Observable<Task[]>{
     let url = `${this.tasksUrl}?q[s]=updated_at+DESC`;

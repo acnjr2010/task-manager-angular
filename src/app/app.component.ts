@@ -3,7 +3,7 @@ import { TaskmanagerFrontendPage } from '../../e2e/app.po';
 import { stringify } from '@angular/core/src/util';
 
 import { Task } from './tasks/shared/task.model';
-import { Angular2TokenService } from 'angular2-token';
+import { TokenService } from './shared/token.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ import { Angular2TokenService } from 'angular2-token';
 export class AppComponent {
   title = 'Gerenciador de Tarefas';
 
-  public constructor(private tokenService: Angular2TokenService){
+  public constructor(private tokenService: TokenService){
     this.tokenService.init({
       apiBase: 'http://localhost:3000',
       globalOptions: {

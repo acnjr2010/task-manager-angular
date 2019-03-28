@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // angular plugins imports
-import { Angular2TokenService } from 'angular2-token';
+import { TokenService } from './shared/token.service';
 
 // components imports
 import { AppComponent } from './app.component';
@@ -68,11 +68,11 @@ import { AuthService } from './shared/auth.service';
     //InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
   ],
   providers: [ 
-    Angular2TokenService,
     AuthGuard,
     AuthService,
     NotAuthenticatedGuard,
-    TaskService
+    TaskService,
+    TokenService
   ],
   bootstrap: [AppComponent]
 })
