@@ -14,8 +14,14 @@
         </li>
       </ul>
 
+      <div class="navbar-form navbar-left">
+          <task-search></task-search>
+      </div>      
+
       <div class="navbar-form navbar-right">
-        <task-search></task-search>
+        <button class="btn btn-danger" (click)="signOutUser()">
+          Sair
+        </button>
       </div>
     </div>
   </nav>
