@@ -25,6 +25,7 @@ import { AppRoutingModule } from 'app/app-routing.module';
 
 // guards
 import { AuthGuard } from './guards/auth.guard';
+import { NotAuthenticatedGuard } from './guards/not-authenticated.guard'
 
 // in memory web api
 // import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -70,6 +71,7 @@ import { AuthService } from './shared/auth.service';
     Angular2TokenService,
     AuthGuard,
     AuthService,
+    NotAuthenticatedGuard,
     TaskService
   ],
   bootstrap: [AppComponent]
