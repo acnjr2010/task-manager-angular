@@ -1,7 +1,7 @@
 // angular imports
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http';
 
 // angular plugins imports
@@ -27,25 +27,12 @@ import { AppRoutingModule } from 'app/app-routing.module';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthenticatedGuard } from './guards/not-authenticated.guard'
 
-// in memory web api
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryTaskDataService } from './in-memory-task-data.service';
-
-// rxjs operators
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/distinctUntilChanged";
-
-// rxjs extension
-import "rxjs/add/observable/of";
-import 'rxjs/add/observable/throw';
-
 // jquery
 import * as $ from 'jquery';
 import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
 import { AuthService } from './shared/auth.service';
+
+window['datetimepicker'] = window['datetimepicker'] = datetimepicker;
 
 
 @NgModule({
@@ -64,8 +51,7 @@ import { AuthService } from './shared/auth.service';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule//,
-    //InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
+    AppRoutingModule
   ],
   providers: [ 
     AuthGuard,

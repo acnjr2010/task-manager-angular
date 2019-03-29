@@ -1,7 +1,8 @@
 import { Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { TokenService } from '../../shared/token.service';
 
 @Injectable()
@@ -14,64 +15,70 @@ export class TaskService{
   public getAll(): Observable<Task[]>{
     let url = `${this.tasksUrl}?q[s]=updated_at+DESC`;
     
-    return this.tokenHttp.get(url)
-      .catch(this.handleErrors)
-      .map((response: Response) => this.responseToTasks(response));
-
+    return this.tokenHttp.get(url).pipe(
+      catchError(this.handleErrors),
+      map((response: Response) => this.responseToTasks(response))
+    )
   }
 
   public getImportant(): Observable<any>{
     let url = `${this.tasksUrl}?q[s]=deadline+ASC`
-    return this.getAll()
-      .catch(this.handleErrors)
-      .map((response: Response) => this.responseToTasks(response));
+    return this.getAll().pipe(
+      catchError(this.handleErrors), 
+      map((response: Response) => this.responseToTasks(response))
+    )      
   }
 
   public getById(id: number): Observable<Task>{
     let url = `${this.tasksUrl}/${id}`;
 
-    return this.tokenHttp.get(url)
-      .catch(this.handleErrors)
-      .map((response: Response) => this.responseToTask(response))
+    return this.tokenHttp.get(url).pipe(
+      catchError(this.handleErrors),
+      map((response: Response) => this.responseToTask(response))
+    )
   }
 
   public create(task: Task): Observable<Task> {
     let url = this.tasksUrl;
     let body = JSON.stringify(task);
   
-    return this.tokenHttp.post(url, body)
-      .catch(this.handleErrors)
-      .map((response: Response) => this.responseToTask(response))
+    return this.tokenHttp.post(url, body).pipe(
+      catchError(this.handleErrors),
+      map((response: Response) => this.responseToTask(response))
+    )
   }
 
   public update(task: Task): Observable<Task>{
     let url = `${this.tasksUrl}/${task.id}`;
     let body = JSON.stringify(task);
     
-    return this.tokenHttp.put(url, body)
-      .catch(this.handleErrors)
-      .map(() => task);
+    return this.tokenHttp.put(url, body).pipe(
+      catchError(this.handleErrors),
+      map(() => task)
+    )
   }
 
   public delete(id: number): Observable<null>{
     let url = `${this.tasksUrl}/${id}`;
     
-    return this.tokenHttp.delete(url)
-      .catch(this.handleErrors)
-      .map(() => null)
+    return this.tokenHttp.delete(url).pipe(
+      catchError(this.handleErrors),
+      map(() => null)
+    )
   }
 
   public searchByTitle(term: string): Observable<Task[]>{
     let url = `${this.tasksUrl}?q[title_cont]=${term}`;
 
-    return this.tokenHttp.get(url)
-      .catch(this.handleErrors)
-      .map((response: Response) => this.responseToTasks(response));
+    return this.tokenHttp.get(url).pipe(
+      catchError(this.handleErrors),
+      map((response: Response) => this.responseToTasks(response))
+    )
   }
 
   private handleErrors(error: Response){
     console.log("DETALHE DO ERRO " + error)
-    return Observable.throw(error);
+    return throwError(error);
   }
 
   private responseToTasks(response: Response){

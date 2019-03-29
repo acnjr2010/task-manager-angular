@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { FormUtils } from '../../shared/form.utils';
 import { Task } from '../shared/task.model';
 import { TaskService } from '../shared/task.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'task-detail',
@@ -45,12 +46,12 @@ export class TaskDetailComponent implements OnInit, AfterViewInit{
   public ngOnInit(){
     this.task = new Task(null, null);
 
-    this.route.params
-      .switchMap((params: Params) => this.taskService.getById(+params['id']))
-      .subscribe(
-        task => this.setTask(task),
-        error => alert("Ocorreu um erro no servidor, tente novamente mais tarde...")
-      )
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.taskService.getById(+params.get('id')))
+    ).subscribe(
+      task => this.setTask(task),
+      error => alert("Ocorreu um erro no servidor, tente novamente mais tarde...")
+    )
   }
 
   public ngAfterViewInit(){
