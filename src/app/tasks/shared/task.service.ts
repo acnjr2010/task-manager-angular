@@ -23,7 +23,7 @@ export class TaskService{
 
   public getImportant(): Observable<any>{
     let url = `${this.tasksUrl}?q[s]=deadline+ASC`
-    return this.getAll().pipe(
+    return this.tokenHttp.get(url).pipe(
       catchError(this.handleErrors), 
       map((response: Response) => this.responseToTasks(response))
     )      
